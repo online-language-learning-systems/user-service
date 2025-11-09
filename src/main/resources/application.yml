@@ -1,0 +1,29 @@
+server:
+  port: 9000
+  shutdown: graceful
+  servlet:
+    context-path: /user-service
+
+spring:
+  application:
+    name: user-service
+  lifecycle:
+    timeout-per-shutdown-phase: 15s
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_ISSUER_URI:http://identity:8080/realms/CourseRealm}
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+
+keycloak:
+  auth-server-url: ${KEYCLOAK_SERVER_URI:http://identity:8080}
+  realm: CourseRealm
+  resource: user-management
+  credentials:
+    secret: ${KEYCLOAK_CLIENT_SECRET_USER:ebyMQYbAe5zxWN2RPVZ5V7t2woDsRZjb}
